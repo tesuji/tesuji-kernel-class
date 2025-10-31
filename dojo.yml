@@ -1,11 +1,8 @@
-id: example
-name: Example Dojo
-type: example
+id: tesuji-kernel-class
+name: Kernel class
+type: hidden
+image: pwncollege/challenge-legacy:latest
 award:
-  emoji: 😀
-image: pwncollege/challenge-simple
+  emoji: :radioactive:
 modules:
-  - id: hello
-  - id: world
-  - id: demo
-  - id: lectures
+  - id: makeway
