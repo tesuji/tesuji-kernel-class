@@ -3,6 +3,6 @@ name: Kernel class
 type: hidden
 image: pwncollege/challenge-legacy:latest
 award:
-  emoji: :radioactive:
+  emoji: ☢️
 modules:
   - id: makeway
