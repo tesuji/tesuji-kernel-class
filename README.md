@@ -89,6 +89,37 @@ The challenge can remedy this by explicitly setting the **real** user to the **e
 setreuid(geteuid(), -1)
 ```
 
+### For kernel pwn challenges with initramfs
 
+```bash
+mkdir rootfs && cd rootfs
+zcat ../initramfs.cpio.gz | cpio -idmv
+find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz
+```
 
+Patch /init script:
+```bash
+mkdir -p /mnt
+mount /dev/sr0 /mnt
+cp /mnt/exp /exp
+chmod 0777 /exp
+cp /mnt/flag /flag
+chmod 0400 /flag
+```
 
+Add flag to qemu:
+```bash
+tmpdir=$(mktemp -d)
+
+if [ -f ./exp ] && [ -r ./exp ]; then
+  genisoimage  \
+    -o $tmpdir/pwn.iso \
+    -file-mode 0400 \
+    ./exp \
+    /flag \
+    $NULL
+fi
+
+qemu ... \
+    -cdrom $tmpdir/pwn.iso
+```

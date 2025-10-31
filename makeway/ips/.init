@@ -1,3 +1,9 @@
 #!/bin/bash
+set -e
+export PATH=/bin
+
+tar xf /challenge/ips.tar.gz -C /challenge
+
 /opt/linux/linux-5.4/scripts/extract-vmlinux \
 	/challenge/bzImage > /challenge/vmlinux
+
