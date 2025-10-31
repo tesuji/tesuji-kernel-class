@@ -1,0 +1,3 @@
+#!/bin/bash
+/opt/linux/linux-5.4/scripts/extract-vmlinux \
+	/challenge/bzImage > /challenge/vmlinux
