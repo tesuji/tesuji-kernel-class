@@ -1,6 +1,6 @@
 id: tesuji-kernel-class
 name: Lame Kernel Exercise
-type: hidden
+# type: hidden
 image: pwncollege/challenge-legacy:latest
 award:
   emoji: 🦍
