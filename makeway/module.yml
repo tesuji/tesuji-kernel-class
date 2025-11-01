@@ -1,7 +1,9 @@
 name: makeway
 challenges:
   - id: ips
-    name: IPS
+    name: 1 - IPS
   - id: wall-of-perdition
-    name: Wall of Perdition
+    name: 2 - Wall of Perdition
+  - id: cache-of-castaways
+    name: 3 - Cache of Castways
 
