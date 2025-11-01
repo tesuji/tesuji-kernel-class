@@ -8,7 +8,7 @@ mkdir rootfs && cd rootfs
 zcat /challenge/initramfs.cpio.gz | cpio -imd
 cp /flag flag
 find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz
-popd
+popd >/dev/null
 
 exec qemu-system-x86_64 \
     -enable-kvm \
