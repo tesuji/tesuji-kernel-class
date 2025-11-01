@@ -10,6 +10,9 @@ Your exploit binary will be loaded from a file name `exp` in the cwd.
 In most cases, the exploit binary should be **statically** compiled since
 there is no glibc runtime inside the init rootfs.
 
+There are hints encoded in base64. However you should avoid hints
+and find the bug yourself.
+
 In practice mode, to aid debugging, edit `run.sh` to:
 * Remove kaslr.
 * Enable kvm with `--enable-kvm` flag for better performance.
