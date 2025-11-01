@@ -6,6 +6,7 @@
 
 The following directories is under AGPLv3 license, as required by upstream:
 * makeway/wall-of-perdition
+* makeway/cache-of-castaways
 
 All others is under BSD license.
 
