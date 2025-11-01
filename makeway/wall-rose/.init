@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+export PATH=/bin
+
+chmod 444 /challenge/*.md /challenge/*.gz
+
+/opt/linux/linux-5.4/scripts/extract-vmlinux \
+	/challenge/bzImage > /challenge/vmlinux
+

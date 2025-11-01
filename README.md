@@ -4,11 +4,14 @@
 
 # License
 
-The following directories is under AGPLv3 license, as required by upstream:
+The following directories are under AGPLv3 license:
 * makeway/wall-of-perdition
 * makeway/cache-of-castaways
 
-All others is under BSD license.
+These directories are under GPLv2 license:
+* makeway/wall-rose
+
+All others are under BSD license.
 
 ## Challenge Writing Laws
 
@@ -23,7 +26,7 @@ find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz
 Patch /init script:
 ```bash
 mkdir -p /mnt
-mount /dev/sr0 /mnt
+mount -t iso9660 /dev/sr0 /mnt
 cp /mnt/exp /exp
 chmod 0777 /exp
 cp /mnt/flag /flag
@@ -36,10 +39,11 @@ tmpdir=$(mktemp -d)
 exp="$1"
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
+  cp "$exp" $tmpdir/exp
   genisoimage  \
     -o $tmpdir/pwn.iso \
     -file-mode 0400 \
-    "$exp" \
+    "$tmpdir/exp" \
     /flag \
     $NULL
 fi
