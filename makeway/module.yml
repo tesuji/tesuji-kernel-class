@@ -2,4 +2,6 @@ name: makeway
 challenges:
   - id: ips
     name: IPS
+  - id: wall-of-perdition
+    name: Wall of Perdition
 
