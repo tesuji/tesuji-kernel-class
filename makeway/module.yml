@@ -6,4 +6,6 @@ challenges:
     name: 2 - Wall of Perdition
   - id: cache-of-castaways
     name: 3 - Cache of Castways
+  - id: gatekeep
+    name: N - just a gate keeper
 
