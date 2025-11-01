@@ -4,11 +4,11 @@ before these challenges.
 ## Notes
 
 These challenges use `/challenges/run.sh` as a starting point.
-They do not `vm` script like you might be used to.
+They do not use `vm` script at all.
 
-Your exploit binary will be loaded from a file name `exp` in the cwd.
-In most cases, the exploit binary should be **statically** compiled since
-there is no glibc runtime inside the init rootfs.
+You might run `/challenges/run.sh <bin path>` to copy the exploit binary
+to the vm. In most cases, the exploit binary should be **statically** compiled
+since there is no glibc runtime inside the init rootfs.
 
 There are hints encoded in base64. However you should avoid hints
 and find the bug yourself.

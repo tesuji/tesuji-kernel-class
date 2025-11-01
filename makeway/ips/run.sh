@@ -2,15 +2,16 @@
 set -e
 
 tmpdir=$(mktemp -d)
-if [ ! -f ./exp ]; then
-  touch ./exp
+
+if [ ! -f "$exp" ]; then
+    exp=/bin/true
 fi
 
-if [ -f ./exp ] && [ -r ./exp ]; then
+if [ -f "$exp" ] && [ -r "$exp" ]; then
   genisoimage  \
     -o $tmpdir/pwn.iso \
     -file-mode 0400 \
-    ./exp \
+    "$exp" \
     /flag \
     $NULL
 fi
