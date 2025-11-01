@@ -1,3 +1,7 @@
+# Special thanks to
+
+n132 for this list: <https://n132.github.io/archive>.
+
 # Example Dojo
 
 This repository features an example dojo.
