@@ -1,8 +1,8 @@
 id: tesuji-kernel-class
-name: Kernel class
+name: Lame Kernel Exercise
 type: hidden
 image: pwncollege/challenge-legacy:latest
 award:
-  emoji: 🐄
+  emoji: 🦍
 modules:
   - id: makeway
