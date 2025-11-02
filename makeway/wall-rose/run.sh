@@ -3,12 +3,17 @@ set -e
 
 tmpdir=$(mktemp -d)
 
+exp="$1"
 if [ ! -f "$exp" ]; then
     exp=/bin/true
 fi
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
   cp "$exp" $tmpdir/exp
+  if file $tmpdir/exp | grep -qv ELF; then
+    echo "accept elf only" >&2
+    exit 1
+  fi
   genisoimage  \
     -o $tmpdir/pwn.iso \
     -file-mode 0400 \
