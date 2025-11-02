@@ -28,22 +28,24 @@ apt-get clean
 EOF
 
 RUN <<EOF
-mkdir -p /challenge
-make
-cp /src/echo.ko /src/echo.c /challenge/
-
-DEBIAN_FRONTEND=noninteractive apt-get download linux-image-$KVER
-dpkg -x linux-image-$KVER_*.deb .
-cp boot/vmlinuz-* /challenge/bzImage
-
 echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 passwd -d hacker
 userdel -r ubuntu
 EOF
 
+RUN <<EOF
+mkdir -p /challenge/bin/
+
+cp vm /challenge/bin/
+cp vm_init /challenge/
+
+DEBIAN_FRONTEND=noninteractive apt-get download linux-image-$KVER
+dpkg -x linux-image-$KVER_*.deb .
+cp boot/vmlinuz-* /challenge/bzImage
+EOF
+
 # Create initramfs tree
-#WORKDIR /src/fs
 RUN <<EOF
 mkdir -p initramfs/{bin,sbin,etc,proc,sys,dev,newroot,lib/modules/${KVER}}
 cp /bin/busybox initramfs/bin/
@@ -68,8 +70,7 @@ cp /lib64/ld-linux-x86-64.so.2 initramfs/lib64/
 mkdir -p initramfs/lib/modules/$KVER/kernel/{net,fs/netfs}/
 cp -a /lib/modules/$KVER/kernel/net/9p initramfs/lib/modules/$KVER/kernel/net/
 cp -a /lib/modules/$KVER/kernel/fs/9p initramfs/lib/modules/$KVER/kernel/fs/
-cp -a /lib/modules/6.8.0-83-generic/kernel/fs/netfs/netfs.ko.zst \
-    initramfs/lib/modules/$KVER/kernel/fs/netfs/
+cp -a /lib/modules/$KVER/kernel/fs/netfs/ initramfs/lib/modules/$KVER/kernel/fs/netfs/
 
 cp -a /lib/modules/$KVER/modules.* initramfs/lib/modules/$KVER/
 
