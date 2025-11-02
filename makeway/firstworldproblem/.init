@@ -2,11 +2,13 @@
 set -e
 export PATH=/bin
 
+passwd -d hacker
+
 pushd /challenge
 mkdir -p /src
 cp echo.c Makefile /src
 cd /src
-make
+make CC=/bin/gcc
 cp /src/echo.ko /challenge/
 popd
 

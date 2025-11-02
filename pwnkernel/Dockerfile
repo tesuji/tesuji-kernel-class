@@ -70,10 +70,10 @@ mkdir -p initramfs/lib64/
 cp /lib64/ld-linux-x86-64.so.2 initramfs/lib64/
 
 # Copy 9p modules + deps from host into initramfs
-mkdir -p initramfs/lib/modules/$KVER/kernel/{net,fs/netfs}/
+mkdir -p initramfs/lib/modules/$KVER/kernel/{net,fs}/
 cp -a /lib/modules/$KVER/kernel/net/9p initramfs/lib/modules/$KVER/kernel/net/
 cp -a /lib/modules/$KVER/kernel/fs/9p initramfs/lib/modules/$KVER/kernel/fs/
-cp -a /lib/modules/$KVER/kernel/fs/netfs/ initramfs/lib/modules/$KVER/kernel/fs/netfs/
+cp -a /lib/modules/$KVER/kernel/fs/netfs initramfs/lib/modules/$KVER/kernel/fs/
 
 cp -a /lib/modules/$KVER/modules.* initramfs/lib/modules/$KVER/
 

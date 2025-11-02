@@ -76,7 +76,7 @@ static int __init echo_init(void) {
     goto dev_fail;
   }
 
-  pr_info("Created /dev/%s\n", DEV_NAME);
+  pr_info("Created /dev/%s with major %d\n", DEV_NAME, gchrdev);
   return 0;
 
 dev_fail:
