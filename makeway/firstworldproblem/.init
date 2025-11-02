@@ -2,7 +2,12 @@
 set -e
 export PATH=/bin
 
-rm -rf /src /challenge/build.sh
+cp echo.c Makefile /src
+pushd /src
+make
+cp echo.ko /challenge/
+popd
+rm -rf /src
 
 find /challenge -type f -exec chmod 444 {} +
 chmod 4755 /challenge/bin/vm

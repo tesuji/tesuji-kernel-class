@@ -10,7 +10,7 @@ challenges:
     name: 4 - Wall Rose
   - id: firstworldproblem
     name: 5 - First World Problem
-    image: tesuji777/echo:latest
+    image: tesuji777/pwnkernel:latest
   - id: gatekeep
     name: N - just a gate keeper
 
