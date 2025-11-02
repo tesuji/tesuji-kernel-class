@@ -1,4 +1,4 @@
-#!/usr/bin/exec-suid -- /run/dojo/bin/python -I
+#!/run/dojo/bin/exec-suid -- /run/dojo/bin/python -I
 
 import argparse
 import ctypes
