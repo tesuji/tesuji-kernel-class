@@ -85,3 +85,6 @@ cd initramfs
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > /challenge/initramfs.cpio.gz
 EOF
 
+WORKDIR /
+RUN rm -rf /src
+
