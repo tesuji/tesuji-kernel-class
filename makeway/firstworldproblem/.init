@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+export PATH=/bin
+
+rm -f /challenge/build.sh
+
+find /challenge -type f -exec chmod 444 {} +
+chmod 4755 /challenge/vm
+chmod 0755 /challenge/vm_init
+
+/lib/modules/6.8.0-83-generic/build/scripts/extract-vmlinux \
+	/challenge/bzImage > /challenge/vmlinux
+

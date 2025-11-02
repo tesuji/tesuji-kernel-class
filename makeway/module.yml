@@ -8,6 +8,9 @@ challenges:
     name: 3 - Cache of Castways
   - id: wall-rose
     name: 4 - Wall Rose
+  - id: firstworldproblem
+    name: 5 - First World Problem
+    image: tesuji777/dojo:echo
   - id: gatekeep
     name: N - just a gate keeper
 
