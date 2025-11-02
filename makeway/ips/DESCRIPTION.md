@@ -1,4 +1,8 @@
-Learn msg_msg.
+Learn `msg_msg`.
+
+### Notes
+
+Add `#include <linux/slab.h>` if you wanna use `vm build /challenge/ips.c`.
 
 Hint 1:
 ```
