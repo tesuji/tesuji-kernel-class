@@ -15,7 +15,7 @@ All others are under BSD license.
 
 ## Challenge image URLs
 
-* <https://hub.docker.com/r/tesuji777/dojo>.
+* <https://hub.docker.com/r/tesuji777/>.
 
 ## Challenge Writing Laws
 
@@ -44,6 +44,10 @@ exp="$1"
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
   cp "$exp" $tmpdir/exp
+  if file $tmpdir/exp | grep -qv ELF; then
+    echo "accept elf only" >&2
+    exit 1
+  fi
   genisoimage  \
     -o $tmpdir/pwn.iso \
     -file-mode 0400 \

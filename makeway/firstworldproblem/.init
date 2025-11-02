@@ -3,6 +3,7 @@ set -e
 export PATH=/bin
 
 passwd -d hacker
+#mv /dev/kvm /dev/nokvm
 
 pushd /challenge
 mkdir -p /src
