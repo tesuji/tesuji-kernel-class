@@ -2,7 +2,8 @@
 set -e
 export PATH=/bin
 
-chmod 444 /challenge/*.md /challenge/*.gz /challenge/*config
+find /challenge -type f -exec chmod 444 {} +
+chmod 4755 /challenge/run.sh
 
 tar xf /challenge/*.tar.gz -C /challenge
 
