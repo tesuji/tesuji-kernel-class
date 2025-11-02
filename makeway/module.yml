@@ -10,7 +10,7 @@ challenges:
     name: 4 - Wall Rose
   - id: firstworldproblem
     name: 5 - First World Problem
-    image: tesuji777/dojo:echo@sha256:5d334a53a6601c39e447160923415aaf39ef2a57a1a0f47bd7d092bf88d71094
+    image: tesuji777/echo:latest
   - id: gatekeep
     name: N - just a gate keeper
 

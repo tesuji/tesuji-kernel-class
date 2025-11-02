@@ -28,13 +28,15 @@ apt-get clean
 EOF
 
 RUN <<EOF
+set -e
 echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-passwd -d hacker
+#passwd -d hacker
 userdel -r ubuntu
 EOF
 
 RUN <<EOF
+set -e
 mkdir -p /challenge/bin/
 
 cp vm /challenge/bin/
@@ -47,6 +49,7 @@ EOF
 
 # Create initramfs tree
 RUN <<EOF
+set -e
 mkdir -p initramfs/{bin,sbin,etc,proc,sys,dev,newroot,lib/modules/${KVER}}
 cp /bin/busybox initramfs/bin/
 
