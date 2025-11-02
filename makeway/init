@@ -5,7 +5,7 @@ export PATH=/bin
 find /challenge -type f -exec chmod 444 {} +
 chmod 4755 /challenge/run.sh
 
-tar xf /challenge/*.tar.gz -C /challenge
+tar xf /challenge/*.tar.gz -C /challenge --no-same-owner
 
 /opt/linux/linux-5.4/scripts/extract-vmlinux \
 	/challenge/bzImage > /challenge/vmlinux
