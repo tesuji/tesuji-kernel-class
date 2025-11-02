@@ -1,4 +1,4 @@
-#!/usr/bin/exec-suid -- /usr/bin/python3 -I
+#!/usr/bin/exec-suid -- /run/dojo/bin/python -I
 
 import argparse
 import ctypes
@@ -15,6 +15,7 @@ LINUX_REBOOT_CMD_POWER_OFF = 0x4321fedc
 LINUX_REBOOT_CMD_RESTART = 0x1234567
 
 libc = ctypes.CDLL("libc.so.6")
+# print("path =", os.environ["PATH"])
 
 
 def error(msg):
@@ -95,6 +96,7 @@ def start():
     cpu = "host" if kvm else "qemu64"
     append = " ".join([
         "rw",
+        "root=/dev/root",
         "rootfstype=9p",
         "rootflags=trans=virtio",
         "console=ttyS0",
@@ -104,15 +106,16 @@ def start():
     ])
 
     qemu_argv = [
-        "/usr/bin/qemu-system-x86_64",
+        "/run/dojo/bin/qemu-system-x86_64",
+        "-initrd", "/challenge/initramfs.cpio.gz",
         "-kernel", bzImage,
         "-cpu", f"{cpu},smep,smap",
         "-fsdev", "local,id=rootfs,path=/,security_model=passthrough",
         "-device", "virtio-9p-pci,fsdev=rootfs,mount_tag=/dev/root",
         "-fsdev", "local,id=homefs,path=/home/hacker,security_model=passthrough",
         "-device", "virtio-9p-pci,fsdev=homefs,mount_tag=/home/hacker",
-        "-device", "e1000,netdev=net0",
         "-netdev", "user,id=net0,hostfwd=tcp::22-:22",
+        "-device", "virtio-net-pci,netdev=net0",
         "-m", "2G",
         "-smp", "2" if kvm else "1",
         "-nographic",

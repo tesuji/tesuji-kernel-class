@@ -2,7 +2,7 @@
 set -e
 export PATH=/bin
 
-rm -f /challenge/build.sh
+rm -rf /src /challenge/build.sh
 
 find /challenge -type f -exec chmod 444 {} +
 chmod 4755 /challenge/vm
