@@ -56,7 +56,6 @@ static const struct file_operations echo_fops = {
 static int __init echo_init(void) {
   int ret;
 
-  /* register major via the old API to mirror __register_chrdev path */
   gchrdev = register_chrdev(0, DEV_NAME, &echo_fops);
   if (gchrdev < 0) {
     pr_err("Registering char device failed with %d\n", gchrdev);
@@ -88,6 +87,7 @@ class_fail:
 }
 
 static void __exit echo_exit(void) {
+  if (!gclass) return;
   device_destroy(gclass, MKDEV(gchrdev, 0));
   class_unregister(gclass);
   class_destroy(gclass);
@@ -98,7 +98,6 @@ static void __exit echo_exit(void) {
 module_init(echo_init);
 module_exit(echo_exit);
 
-MODULE_AUTHOR("Daan Keuper");
-MODULE_DESCRIPTION(
-    "Format-string echo device (intentionally vulnerable) for CTF-style use");
+MODULE_AUTHOR("Daan Keuper & Nendo");
+MODULE_DESCRIPTION("Vulnerable format-string echo device for CTF-style use");
 MODULE_LICENSE("GPL");

@@ -7,19 +7,26 @@ ENV KVER=${KVER:-6.8.0-83-generic}
 
 SHELL ["/bin/bash", "-c"]
 
-RUN apt-get update && \
-    apt-get install -y \
-        build-essential \
-        kmod \
-        linux-headers-$KVER \
-        linux-modules-$KVER \
-        git \
-        make \
-        ssh \
-        $NULL
-
 WORKDIR /src
-COPY . /src
+COPY . /src/
+RUN <<EOF
+apt-get update
+apt-get install -y \
+    build-essential \
+    kmod \
+    linux-headers-$KVER \
+    linux-modules-$KVER \
+    git \
+    make \
+    ssh \
+    busybox-static \
+    cpio \
+    gzip \
+    zstd \
+    $NULL
+apt-get clean
+EOF
+
 RUN <<EOF
 mkdir -p /challenge
 make
@@ -28,28 +35,15 @@ cp /src/echo.ko /src/echo.c /challenge/
 DEBIAN_FRONTEND=noninteractive apt-get download linux-image-$KVER
 dpkg -x linux-image-$KVER_*.deb .
 cp boot/vmlinuz-* /challenge/bzImage
-EOF
 
-#ADD --chown=0:0 --chmod=6755 \
-#    http://github.com/pwncollege/exec-suid/releases/latest/download/exec-suid \
-#    /usr/bin/exec-suid
-#RUN <<EOF
-#mkdir -p /opt/pwncollege/
-#ln -f /usr/bin/exec-suid /opt/pwncollege/bash
-#ln -f /usr/bin/exec-suid /opt/pwncollege/python
-#EOF
+echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+passwd -d hacker
+userdel -r ubuntu
+EOF
 
 # Create initramfs tree
 #WORKDIR /src/fs
-RUN <<EOF
-apt-get install -y \
-    busybox-static \
-    cpio \
-    gzip \
-    zstd \
-    $NULL
-EOF
-
 RUN <<EOF
 mkdir -p initramfs/{bin,sbin,etc,proc,sys,dev,newroot,lib/modules/${KVER}}
 cp /bin/busybox initramfs/bin/
@@ -78,8 +72,6 @@ cp -a /lib/modules/6.8.0-83-generic/kernel/fs/netfs/netfs.ko.zst \
     initramfs/lib/modules/$KVER/kernel/fs/netfs/
 
 cp -a /lib/modules/$KVER/modules.* initramfs/lib/modules/$KVER/
-
-#find initramfs/lib/modules -name "*.zst" -exec zstd -d {} +
 
 cp /src/initramfs.sh initramfs/init
 chmod +x initramfs/init

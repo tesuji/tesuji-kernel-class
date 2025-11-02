@@ -37,7 +37,7 @@ find /challenge -name '*.ko' -exec /usr/sbin/insmod {} \;
 service ssh start
 
 if [ -e /challenge/.initvm ]; then
-	. /challenge/.initvm
+    . /challenge/.initvm
 fi
 
 if [ -e /usr/sbin/docker-init ]; then
