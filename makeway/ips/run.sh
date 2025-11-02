@@ -8,10 +8,11 @@ if [ ! -f "$exp" ]; then
 fi
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
+  cp "$exp" $tmpdir/exp
   genisoimage  \
     -o $tmpdir/pwn.iso \
     -file-mode 0400 \
-    "$exp" \
+    "$tmpdir/exp" \
     /flag \
     $NULL
 fi
