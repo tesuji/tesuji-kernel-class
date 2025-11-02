@@ -5,7 +5,7 @@ export PATH=/bin
 rm -rf /src /challenge/build.sh
 
 find /challenge -type f -exec chmod 444 {} +
-chmod 4755 /challenge/vm
+chmod 4755 /challenge/bin/vm
 chmod 0755 /challenge/vm_init
 
 /lib/modules/6.8.0-83-generic/build/scripts/extract-vmlinux \

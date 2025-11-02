@@ -13,6 +13,10 @@ These directories are under GPLv2 license:
 
 All others are under BSD license.
 
+## Challenge image URLs
+
+* <https://hub.docker.com/r/tesuji777/dojo>.
+
 ## Challenge Writing Laws
 
 ### For kernel pwn challenges with initramfs
