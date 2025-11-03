@@ -106,6 +106,7 @@ def start():
     ])
 
     qemu_argv = [
+        # could use shutil.which
         "/run/dojo/bin/qemu-system-x86_64",
         "-initrd", "/challenge/initramfs.cpio.gz",
         "-kernel", bzImage,

@@ -7,8 +7,6 @@ ENV KVER=${KVER:-6.8.0-83-generic}
 
 SHELL ["/bin/bash", "-c"]
 
-WORKDIR /src
-COPY . /src/
 RUN <<EOF
 apt-get update
 apt-get install -y \
@@ -27,6 +25,9 @@ apt-get install -y \
 apt-get clean
 EOF
 
+# Use COPY after agt-get to allow caching apt
+WORKDIR /src
+COPY initramfs.sh vm vm_init /src/
 RUN <<EOF
 set -e
 echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
@@ -45,15 +46,16 @@ cp vm_init /challenge/
 DEBIAN_FRONTEND=noninteractive apt-get download linux-image-$KVER
 dpkg -x linux-image-$KVER_*.deb .
 cp boot/vmlinuz-* /challenge/bzImage
+cp /boot/config-$KVER /challenge/kconfig
 EOF
 
 # Create initramfs tree
 RUN <<EOF
 set -e
-mkdir -p initramfs/{bin,sbin,etc,proc,sys,dev,newroot,lib/modules/${KVER}}
-cp /bin/busybox initramfs/bin/
+mkdir -p fs/{bin,sbin,etc,proc,sys,dev,newroot,lib/modules/${KVER}}
+cp /bin/busybox fs/bin/
 
-pushd initramfs/bin
+pushd fs/bin
 for app in sh mount mkdir mknod switch_root;
     do ln -s busybox $app;
 done
@@ -66,25 +68,26 @@ cp /lib/x86_64-linux-gnu/liblzma.so.5 .
 cp /lib/x86_64-linux-gnu/libcrypto.so.3 .
 cp /lib/x86_64-linux-gnu/libc.so.6 .
 popd
-mkdir -p initramfs/lib64/
-cp /lib64/ld-linux-x86-64.so.2 initramfs/lib64/
+mkdir -p fs/lib64/
+cp /lib64/ld-linux-x86-64.so.2 fs/lib64/
 
 # Copy 9p modules + deps from host into initramfs
-mkdir -p initramfs/lib/modules/$KVER/kernel/{net,fs}/
-cp -a /lib/modules/$KVER/kernel/net/9p initramfs/lib/modules/$KVER/kernel/net/
-cp -a /lib/modules/$KVER/kernel/fs/9p initramfs/lib/modules/$KVER/kernel/fs/
-cp -a /lib/modules/$KVER/kernel/fs/netfs initramfs/lib/modules/$KVER/kernel/fs/
+mkdir -p fs/lib/modules/$KVER/kernel/{net,fs}/
+cp -a /lib/modules/$KVER/kernel/net/9p      fs/lib/modules/$KVER/kernel/net/
+cp -a /lib/modules/$KVER/kernel/fs/9p       fs/lib/modules/$KVER/kernel/fs/
+cp -a /lib/modules/$KVER/kernel/fs/netfs    fs/lib/modules/$KVER/kernel/fs/
 
-cp -a /lib/modules/$KVER/modules.* initramfs/lib/modules/$KVER/
+cp -a /lib/modules/$KVER/modules.* fs/lib/modules/$KVER/
 
-cp /src/initramfs.sh initramfs/init
-chmod +x initramfs/init
+cp /src/initramfs.sh fs/init
+chmod +x fs/init
 
 # Pack initramfs
-cd initramfs
-find . -print0 | cpio --null -ov --format=newc | gzip -9 > /challenge/initramfs.cpio.gz
-EOF
+pushd fs/
+find . -print0 | cpio --null -o --format=newc | gzip -9 > /challenge/initramfs.cpio.gz
+popd
 
-WORKDIR /
-RUN rm -rf /src
+# Clean alls
+rm -rf /src
+EOF
 
