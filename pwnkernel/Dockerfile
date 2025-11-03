@@ -59,17 +59,19 @@ pushd fs/bin
 for app in sh mount mkdir mknod switch_root;
     do ln -s busybox $app;
 done
+popd
 
-cp /sbin/modprobe .
+# This supports zstd-compressed modules.
+cp /sbin/modprobe fs/bin/
 # dep of modprobe
-mkdir -p ../lib/x86_64-linux-gnu/ && cd $_
+mkdir -p fs/lib64/
+cp /lib64/ld-linux-x86-64.so.2 fs/lib64/
+mkdir -p fs/lib/x86_64-linux-gnu/ && pushd $_
 cp /lib/x86_64-linux-gnu/libzstd.so.1 .
 cp /lib/x86_64-linux-gnu/liblzma.so.5 .
 cp /lib/x86_64-linux-gnu/libcrypto.so.3 .
 cp /lib/x86_64-linux-gnu/libc.so.6 .
 popd
-mkdir -p fs/lib64/
-cp /lib64/ld-linux-x86-64.so.2 fs/lib64/
 
 # Copy 9p modules + deps from host into initramfs
 mkdir -p fs/lib/modules/$KVER/kernel/{net,fs}/
