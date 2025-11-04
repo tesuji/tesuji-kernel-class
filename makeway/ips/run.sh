@@ -22,6 +22,7 @@ if [ -f "$exp" ] && [ -r "$exp" ]; then
     $NULL
 fi
 
+# XXX: Unfortunately the do_sys_ipc does access user pagetable so cannot enable SMAP.
 qemu-system-x86_64 \
   -m 256M \
   -initrd /challenge/initramfs.cpio.gz \
@@ -29,7 +30,7 @@ qemu-system-x86_64 \
   -nographic \
   -monitor /dev/null \
   -append "kpti=1 kaslr root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet" \
-  -cpu qemu64,smep,smap \
+  -cpu qemu64,smep \
   -cdrom $tmpdir/pwn.iso \
   $NULL
 
