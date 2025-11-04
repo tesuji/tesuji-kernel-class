@@ -1,3 +1,4 @@
+# Ref: <https://github.com/pwncollege/challenge-images/blob/main/vm-linux-6.10/Dockerfile>
 FROM ubuntu:24.04 AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,29 +25,43 @@ apt-get install -y \
     $NULL
 apt-get clean
 EOF
+# XXX: Could replace ssh with dropbear: <https://wiki.gentoo.org/wiki/Dropbear>.
 
-# Use COPY after agt-get to allow caching apt
-WORKDIR /src
-COPY initramfs.sh vm vm_init /src/
-RUN <<EOF
-set -e
-echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
-echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 #passwd -d hacker
-userdel -r ubuntu
+RUN userdel -r ubuntu
+COPY <<'EOF' /etc/ssh/sshd_config.d/vm.conf
+PasswordAuthentication yes
+PermitEmptyPasswords yes
 EOF
 
+COPY <<'EOF' /etc/ssh/ssh_config.d/vm.conf
+Host vm
+    HostName localhost
+    Port 22
+    User hacker
+    ControlMaster auto
+    ControlPath /tmp/ssh_mux_%h_%p_%r
+    ControlPersist 10m
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel ERROR
+EOF
+
+# Use COPY after agt-get to allow caching apt
+COPY vm /challenge/bin/
+COPY vm_init /challenge/
+COPY initramfs.sh /src/fs/init
+COPY kropr /usr/local/bin/
+RUN mkdir -p /run/sshd/
+
+WORKDIR /src
 RUN <<EOF
 set -e
-mkdir -p /challenge/bin/
 
-cp vm /challenge/bin/
-cp vm_init /challenge/
-
-DEBIAN_FRONTEND=noninteractive apt-get download linux-image-$KVER
+apt-get download linux-image-$KVER
 dpkg -x linux-image-$KVER_*.deb .
 cp boot/vmlinuz-* /challenge/bzImage
-cp /boot/config-$KVER /challenge/kconfig
+ln -f /boot/config-$KVER /challenge/kconfig
 EOF
 
 # Create initramfs tree
@@ -80,9 +95,6 @@ cp -a /lib/modules/$KVER/kernel/fs/9p       fs/lib/modules/$KVER/kernel/fs/
 cp -a /lib/modules/$KVER/kernel/fs/netfs    fs/lib/modules/$KVER/kernel/fs/
 
 cp -a /lib/modules/$KVER/modules.* fs/lib/modules/$KVER/
-
-cp /src/initramfs.sh fs/init
-chmod +x fs/init
 
 # Pack initramfs
 pushd fs/

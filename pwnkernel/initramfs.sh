@@ -10,7 +10,7 @@ echo "Loading 9p modules..."
 /bin/modprobe 9pnet_virtio
 /bin/modprobe 9p
 echo "Mounting host root via 9p..."
-mount -t 9p -o trans=virtio /dev/root /newroot
+mount -t 9p -o ro,trans=virtio /dev/root /newroot
 echo "Switching root..."
 exec switch_root /newroot /challenge/vm_init
 
