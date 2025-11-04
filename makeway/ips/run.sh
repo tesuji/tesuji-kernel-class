@@ -28,7 +28,8 @@ qemu-system-x86_64 \
   -kernel /challenge/bzImage \
   -nographic \
   -monitor /dev/null \
-  -append "kpti=1 +smep +smap kaslr root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet" \
+  -append "kpti=1 kaslr root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet" \
+  -cpu qemu64,smep,smap \
   -cdrom $tmpdir/pwn.iso \
   $NULL
 
