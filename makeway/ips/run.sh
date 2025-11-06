@@ -1,4 +1,4 @@
-#!/opt/pwn.college/bash
+#!/usr/bin/env -iS /opt/pwn.college/bash
 set -e
 
 tmpdir=$(mktemp -d)
@@ -9,17 +9,16 @@ if [ ! -f "$exp" ]; then
 fi
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
-  cp "$exp" $tmpdir/exp
-  if file $tmpdir/exp | grep -qv ELF; then
+  cp "$exp" "$tmpdir"/exp
+  if file "$tmpdir"/exp | grep -qv ELF; then
     echo "accept elf only" >&2
     exit 1
   fi
   genisoimage  \
-    -o $tmpdir/pwn.iso \
+    -o "$tmpdir"/pwn.iso \
     -file-mode 0400 \
     "$tmpdir/exp" \
-    /flag \
-    $NULL
+    /flag
 fi
 
 # XXX: Unfortunately the do_sys_ipc does access user pagetable so cannot enable SMAP.
@@ -33,6 +32,5 @@ qemu-system-x86_64 \
   -monitor /dev/null \
   -append "kpti=1 kaslr root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet" \
   -cpu qemu64,smep \
-  -cdrom $tmpdir/pwn.iso \
-  $NULL
+  -cdrom "$tmpdir"/pwn.iso
 
