@@ -23,8 +23,10 @@ if [ -f "$exp" ] && [ -r "$exp" ]; then
 fi
 
 # XXX: Unfortunately the do_sys_ipc does access user pagetable so cannot enable SMAP.
+# However we could enable kvm with that.
 qemu-system-x86_64 \
   -m 256M \
+  -enable-kvm \
   -initrd /challenge/initramfs.cpio.gz \
   -kernel /challenge/bzImage \
   -nographic \
