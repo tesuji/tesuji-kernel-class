@@ -43,13 +43,13 @@ tmpdir=$(mktemp -d)
 exp="$1"
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
-  cp "$exp" $tmpdir/exp
-  if file $tmpdir/exp | grep -qv ELF; then
+  cp "$exp" "$tmpdir"/exp
+  if file "$tmpdir"/exp | grep -qv ELF; then
     echo "accept elf only" >&2
     exit 1
   fi
   genisoimage  \
-    -o $tmpdir/pwn.iso \
+    -o "$tmpdir"/pwn.iso \
     -file-mode 0400 \
     "$tmpdir/exp" \
     /flag \
@@ -57,7 +57,7 @@ if [ -f "$exp" ] && [ -r "$exp" ]; then
 fi
 
 qemu ... \
-    -cdrom $tmpdir/pwn.iso \
+    -cdrom "$tmpdir"/pwn.iso \
     $NULL
 ```
 

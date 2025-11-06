@@ -13,4 +13,6 @@ challenges:
     image: tesuji777/pwnkernel:latest
   - id: gatekeep
     name: N - just a gate keeper
+    visibility:
+      start: "2035-11-06"
 
