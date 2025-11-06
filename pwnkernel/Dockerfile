@@ -1,4 +1,5 @@
 # Ref: <https://github.com/pwncollege/challenge-images/blob/main/vm-linux-6.10/Dockerfile>
+# XXX: cannot use focal as it does not have the required kernel packages.
 FROM ubuntu:24.04 AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -27,8 +28,9 @@ apt-get clean
 EOF
 # XXX: Could replace ssh with dropbear: <https://wiki.gentoo.org/wiki/Dropbear>.
 
-#passwd -d hacker
-RUN userdel -r ubuntu
+#passwd -d hacker # for sshd of vm
+# focal doesnt have ubuntu user but 24.04 has.
+RUN userdel -r ubuntu || true
 COPY <<'EOF' /etc/ssh/sshd_config.d/vm.conf
 PasswordAuthentication yes
 PermitEmptyPasswords yes
