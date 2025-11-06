@@ -1,4 +1,4 @@
-#!/opt/pwn.college/bash
+#!/usr/bin/env -iS /opt/pwn.college/bash
 set -e
 
 tmpdir=$(mktemp -d)
@@ -9,17 +9,16 @@ if [ ! -f "$exp" ]; then
 fi
 
 if [ -f "$exp" ] && [ -r "$exp" ]; then
-  cp "$exp" $tmpdir/exp
-  if file $tmpdir/exp | grep -qv ELF; then
+  cp "$exp" "$tmpdir"/exp
+  if file "$tmpdir"/exp | grep -qv ELF; then
     echo "accept elf only" >&2
     exit 1
   fi
   genisoimage  \
-    -o $tmpdir/pwn.iso \
+    -o "$tmpdir"/pwn.iso \
     -file-mode 0400 \
     "$tmpdir/exp" \
-    /flag \
-    $NULL
+    /flag
 fi
 
 qemu-system-x86_64 \
@@ -34,6 +33,4 @@ qemu-system-x86_64 \
     -nographic \
     -no-reboot \
     -net user -net nic -device e1000 \
-    -cdrom $tmpdir/pwn.iso \
-    $NULL
-
+    -cdrom "$tmpdir"/pwn.iso

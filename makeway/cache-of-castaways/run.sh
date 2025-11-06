@@ -1,9 +1,9 @@
-#!/opt/pwn.college/bash
+#!/usr/bin/env -iS /opt/pwn.college/bash
 set -e
 
 tmpdir=$(mktemp -d)
 
-pushd $tmpdir >/dev/null
+pushd "$tmpdir" >/dev/null
 mkdir rootfs && cd rootfs
 zcat /challenge/initramfs.cpio.gz | cpio -imd
 cp /flag flag
@@ -21,6 +21,5 @@ exec qemu-system-x86_64 \
     -monitor /dev/null \
     -cpu qemu64,+smep,+smap \
     -initrd /challenge/initramfs.cpio.gz \
-    -initrd "$tmpdir/initramfs.cpio.gz" \
-    $NULL
+    -initrd "$tmpdir/initramfs.cpio.gz"
 
