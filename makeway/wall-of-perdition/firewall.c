@@ -40,10 +40,6 @@ MODULE_LICENSE("GPL");
 #define OUTBOUND 1
 #define SKIP -1
 
-#ifdef EASY_MODE
-#define DESC_MAX 0x800
-#endif
-
 typedef struct {
   char iface[16];
   char name[16];
@@ -54,9 +50,6 @@ typedef struct {
   uint16_t proto;
   uint16_t port;
   uint8_t action;
-#ifdef EASY_MODE
-  char desc[DESC_MAX];
-#endif
 } user_rule_t;
 
 typedef struct {
@@ -68,9 +61,6 @@ typedef struct {
   uint16_t port;
   uint8_t action;
   uint8_t is_duplicated;
-#ifdef EASY_MODE
-  char desc[DESC_MAX];
-#endif
 } rule_t;
 
 rule_t **firewall_rules_in;
@@ -194,10 +184,6 @@ static long firewall_add_rule(user_rule_t user_rule, rule_t **firewall_rules,
   memcpy(firewall_rules[idx]->iface, user_rule.iface, 16);
   memcpy(firewall_rules[idx]->name, user_rule.name, 16);
 
-#ifdef EASY_MODE
-  strncpy(firewall_rules[idx]->desc, user_rule.desc, DESC_MAX);
-#endif
-
   if (in4_pton(user_rule.ip, strnlen(user_rule.ip, 16),
                (u8 *)&(firewall_rules[idx]->ip), -1, NULL) == 0) {
     printk(KERN_ERR
@@ -245,12 +231,6 @@ static long firewall_delete_rule(user_rule_t user_rule, rule_t **firewall_rules,
 static long firewall_edit_rule(user_rule_t user_rule, rule_t **firewall_rules,
                                uint8_t idx) {
   printk(KERN_INFO "[Firewall::Info] firewall_edit_rule() editing rule!\n");
-
-#ifdef EASY_MODE
-  printk(
-      KERN_INFO
-      "[Firewall::Error] Note that description editing is not implemented.\n");
-#endif
 
   if (firewall_rules[idx] == NULL) {
     printk(KERN_INFO "[Firewall::Error] firewall_edit_rule() invalid idx!\n");
@@ -478,11 +458,7 @@ static int init_firewall(void) {
   }
 
   printk(KERN_INFO "[Firewall::Init] Firewall initialized!\n");
-#ifdef EASY_MODE
-  printk(KERN_INFO "[Firewall::Init] ? Welcome to Easy Mode ?\n");
-#else
-  printk(KERN_INFO "[Firewall::Init] ? Welcome to Hard Mode ?\n");
-#endif
+  printk(KERN_INFO "[Firewall::Init] 😈 Welcome to Hard Mode 😈\n");
   return SUCCESS;
 }
 
