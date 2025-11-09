@@ -12,5 +12,5 @@ echo "Loading 9p modules..."
 echo "Mounting host root via 9p..."
 mount -t 9p -o ro,trans=virtio /dev/root /newroot
 echo "Switching root..."
-exec switch_root /newroot /challenge/vm_init
+exec switch_root /newroot /vm-init
 

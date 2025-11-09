@@ -50,20 +50,22 @@ Host vm
 EOF
 
 # Use COPY after agt-get to allow caching apt
-COPY vm /challenge/bin/
-COPY vm_init /challenge/
+COPY --chmod=4755 vm /usr/local/bin/
+COPY --chmod=0755 vm-init /
 COPY initramfs.sh /src/fs/init
-COPY kropr /usr/local/bin/
+COPY --chmod=0755 kropr /usr/local/bin/
 RUN mkdir -p /run/sshd/
 
 WORKDIR /src
 RUN <<EOF
 set -e
+mkdir -p /challenge/
 
 apt-get download linux-image-$KVER
 dpkg -x linux-image-$KVER_*.deb .
 cp boot/vmlinuz-* /challenge/bzImage
-ln -f /boot/config-$KVER /challenge/kconfig
+ln -sf /boot/config-$KVER /challenge/kconfig
+ln -sf /lib/modules/$KVER/build/scripts/extract-vmlinux /usr/bin/
 EOF
 
 # Create initramfs tree
