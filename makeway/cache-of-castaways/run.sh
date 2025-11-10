@@ -3,10 +3,24 @@ set -e
 
 tmpdir=$(mktemp -d)
 
+exp="$1"
+if [ ! -f "$exp" ]; then
+    exp=/bin/true
+fi
+
+if [ -f "$exp" ] && [ -r "$exp" ]; then
+  cp "$exp" "$tmpdir"/exp
+  if file "$tmpdir"/exp | grep -qv ELF; then
+    echo "accept elf only" >&2
+    exit 1
+  fi
+fi
+
 pushd "$tmpdir" >/dev/null
 mkdir rootfs && cd rootfs
 zcat /challenge/initramfs.cpio.gz | cpio -imd
 cp /flag flag
+ln -f "$tmpdir/exp" ./exp
 find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz
 popd >/dev/null
 
