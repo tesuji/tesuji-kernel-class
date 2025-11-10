@@ -24,12 +24,13 @@ ln -f "$tmpdir/exp" ./exp
 find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz
 popd >/dev/null
 
+# is panic=-1 needed ?
 exec qemu-system-x86_64 \
     -m 128M \
     -nographic \
     -no-reboot \
     -kernel "/challenge/bzImage" \
-    -append "console=ttyS0 qiet loglevel=3 oops=panic panic=-1 pti=on" \
+    -append "console=ttyS0 qiet loglevel=3 oops=panic pti=on" \
     -monitor /dev/null \
     -initrd "$tmpdir/initramfs.cpio.gz" \
     -cpu qemu64,+smep,+smap \
