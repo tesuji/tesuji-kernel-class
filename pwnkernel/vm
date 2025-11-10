@@ -230,11 +230,12 @@ def build(path):
                 textwrap.dedent(
                     f"""
                     obj-m += debug.o
+                    KVER := 6.8.0-83-generic
 
                     all:
-                    \tmake -C /lib/modules/6.8.0-83-generic/build M={workdir} modules
+                    \tmake -C /lib/modules/$KVER/build M={workdir} modules
                     clean:
-                    \tmake -C /lib/modules/6.8.0-83-generic/build M={workdir} clean
+                    \tmake -C /lib/modules/$KVER/build M={workdir} clean
                     """
                 )
             )

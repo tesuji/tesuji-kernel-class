@@ -19,3 +19,11 @@ In practice mode, to aid debugging, edit `run.sh` to modify `qemu` arguments:
 * Enable kvm with `-enable-kvm` flag for better performance.
 * Add `-s` flag for gdb port 1234.
 
+## Further readings
+
+* [A Systematic Study of Elastic Objects in Kernel Exploitation][1].
+* [RetSpill: Igniting User-Controlled Data to Burn Away Linux Kernel Protections][2].
+
+[1]: https://zplin.me/papers/ELOISE.pdf
+[2]: https://adamdoupe.com/publications/retspill-ccs2023.pdf
+
