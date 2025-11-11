@@ -1,6 +1,6 @@
 Elastic objects seem to have even more power in many more slabs!
 
-Could you use UAF-Free-Leak, Retspill, and FG-KASLR bypassing to solve this ?
+Can you use Retspill and bypass FG-KASLR to solve this ?
 
 ## Notes
 
@@ -10,12 +10,14 @@ Could you use UAF-Free-Leak, Retspill, and FG-KASLR bypassing to solve this ?
 * The original event does not provide `firewall.c` during the contest.
   But to focus on bug, here I gift it to you.
 
-Hint:
+Hint 1:
 ```
-aGludDogRGl2ZSBpbnRvIHRoZSBzb3VyY2UgY29kZSBmb3IgdGhhdCBvYmplY3QncyBrZXJuZWwg
-ZnVuY3Rpb25zIGFuZCB5b3UnbGwgc2VlIG1hbnkgdGhpbmdzISBZb3UgY2FuIHN0aWxsIGFjaGll
-dmUgdGhlIHNhbWUgcG93ZXJmdWwgcHJpbWl0aXZlcywgYnV0IGJvdGggcHJpbWl0aXZlcyBub3cg
-aGFzIG5vdCBiZWVuIGRvY3VtZW50ZWQgb3Igd3JpdHRlbiBleHRlbnNpdmVseSBhYm91dCB0byB0
-aGUgZXh0ZW50IG9mIG91ciBrbm93bGVkZ2UuCg==
+VGhlcmUgaXMgYSBVQUYgYnVnIG9uIHRoZSBkdXBsaWNhdGUgZnVuY3Rpb24K
+```
+
+Hint 2: How to bypass FG-KASLR ?
+```
+T3B0YWluIGEgcG9pbnRlciB0byBrZXJuZWwgLmRhdGEgc2VjdGlvbiBpcyBhbGwgeW91IG5lZWQu
+Cg==
 ```
 
