@@ -23,7 +23,7 @@ In practice mode, to aid debugging, edit `run.sh` to modify `qemu` arguments:
 
 * [A Systematic Study of Elastic Objects in Kernel Exploitation][1].
 * [RetSpill: Igniting User-Controlled Data to Burn Away Linux Kernel Protections][2].
-* [SLUBStick: Arbitrary Memory Writes through Practical \
+* [SLUBStick: Arbitrary Memory Writes through Practical
 Software Cross-Cache Attacks within the Linux Kernel][3]: Especially page 17.
 
 [1]: https://zplin.me/papers/ELOISE.pdf
