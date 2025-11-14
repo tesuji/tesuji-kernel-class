@@ -19,16 +19,18 @@ In practice mode, to aid debugging, edit `run.sh` to modify `qemu` arguments:
 * Enable kvm with `-enable-kvm` flag for better performance.
 * Add `-s` flag for gdb port 1234.
 
-## Further readings
+## Recommended readings
 
 * [A Systematic Study of Elastic Objects in Kernel Exploitation][1].
 * [RetSpill: Igniting User-Controlled Data to Burn Away Linux Kernel Protections][2].
 * [SLUBStick: Arbitrary Memory Writes through Practical
 Software Cross-Cache Attacks within the Linux Kernel][3]: Especially page 17.
+* [Four Bytes of Power: Exploiting CVE-2021-26708 in the Linux kernel][4].
 
 [1]: https://zplin.me/papers/ELOISE.pdf
 [2]: https://adamdoupe.com/publications/retspill-ccs2023.pdf
 [3]: https://www.stefangast.eu/papers/slubstick.pdf
+[4]: https://a13xp0p0v.github.io/2021/02/09/CVE-2021-26708.html
 
 <!--
 Some useful objects:
