@@ -23,7 +23,17 @@ In practice mode, to aid debugging, edit `run.sh` to modify `qemu` arguments:
 
 * [A Systematic Study of Elastic Objects in Kernel Exploitation][1].
 * [RetSpill: Igniting User-Controlled Data to Burn Away Linux Kernel Protections][2].
+* [SLUBStick: Arbitrary Memory Writes through Practical \
+Software Cross-Cache Attacks within the Linux Kernel][3]: Especially page 17.
 
 [1]: https://zplin.me/papers/ELOISE.pdf
 [2]: https://adamdoupe.com/publications/retspill-ccs2023.pdf
+[3]: https://www.stefangast.eu/papers/slubstick.pdf
 
+<!--
+Some useful objects:
+* snd_info_private_data: need /proc/asound or /dev/snd
+* <https://starlabs.sg/blog/2023/07-prctl-anon_vma_name-an-amusing-heap-spray/>:
+  Caveat not available on older kernels
+* userfaultfd: Since kernel 5.11 onward not enable anymore or need privilege perm.
+-->
