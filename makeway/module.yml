@@ -2,12 +2,12 @@ name: makeway
 challenges:
   - id: ips
     name: 1 - IPS
-  - id: wall-of-perdition
-    name: 2 - Wall of Perdition
   - id: cache-of-castaways
-    name: 3 - Cache of Castways
+    name: 2 - Cache of Castways
   - id: wall-rose
-    name: 4 - Wall Rose
+    name: 3 - Wall Rose
+  - id: wall-of-perdition
+    name: 4 - Wall of Perdition (Hard)
   - id: firstworldproblem
     name: 5 - First World Problem
     image: tesuji777/pwnkernel:latest
