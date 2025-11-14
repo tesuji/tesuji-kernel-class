@@ -3,6 +3,7 @@
 #include <linux/module.h>
 #include <linux/string.h>
 #include <linux/fdtable.h>
+#include <linux/slab.h>
 
 #ifndef __NR_IPS
 #define __NR_IPS 548
