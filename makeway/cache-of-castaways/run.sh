@@ -34,6 +34,5 @@ exec qemu-system-x86_64 \
     -no-reboot \
     -monitor /dev/null \
     -cpu qemu64,+smep,+smap \
-    -initrd /challenge/initramfs.cpio.gz \
     -initrd "$tmpdir/initramfs.cpio.gz"
 
