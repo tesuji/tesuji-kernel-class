@@ -3,6 +3,7 @@ set -e
 export PATH=/bin
 
 find /challenge -type f -exec chmod 0644 {} +
+rm /challenge/*.md
 chmod 4755 /challenge/run.sh
 
 /opt/linux/linux-5.4/scripts/extract-vmlinux \
