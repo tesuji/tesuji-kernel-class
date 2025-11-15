@@ -2,9 +2,8 @@
 set -e
 export PATH=/bin
 
-chmod 444 /challenge/*.md /challenge/*.gz /challenge/*config
-chmod 400 /challenge/*.c
+find /challenge -type f -exec chmod 0644 {} +
+chmod 4755 /challenge/run.sh
 
 /opt/linux/linux-5.4/scripts/extract-vmlinux \
 	/challenge/bzImage > /challenge/vmlinux
-
