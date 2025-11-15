@@ -3,7 +3,7 @@ challenges:
   - id: ips
     name: 1 - IPS
   - id: cache-of-castaways
-    name: 2 - Cache of Castways
+    name: 2 - Cache of Castway
   - id: wall-rose
     name: 3 - Wall Rose
   - id: wall-of-perdition
