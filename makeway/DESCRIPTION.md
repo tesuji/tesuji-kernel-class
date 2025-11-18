@@ -10,8 +10,8 @@ You might run `/challenges/run.sh <bin path>` to copy the exploit binary
 to the vm. In most cases, the exploit binary should be **statically** compiled
 since there is no glibc runtime inside the init rootfs.
 
-There are hints encoded in base64. However you should avoid hints
-and find the bug yourself.
+There are hints encoded in base64. If you feel stuck after a day or two, feel free to
+take hints for new ideas. After all the dojo is to learn, not to score anyone.
 
 In practice mode, to aid debugging, edit `run.sh` to modify `qemu` arguments:
 
