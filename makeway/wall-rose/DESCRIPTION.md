@@ -1,14 +1,13 @@
 ## Instruction
 
 - You have a busybox shell running as user `user`
-- `/home/user/rose.ko` is a vulnerable kernel driver
-- Try exploiting `/home/user/rose.ko` to achieve privilege escalation
-- You may assumed that Busybox, the Linux kernel, and Qemu are **not vulnerable**.
+- Try exploiting `rose.ko` to achieve privilege escalation
+- You may assumed that busybox, the Linux kernel, and Qemu are **not vulnerable**.
 
 ## Files
 
-- `./share/rose.ko`: The vulnerable driver
-- `./src/rose.c`: The source code of `rose.c`
+- `/challenge/rose.ko`: The vulnerable driver
+- `/challenge/src/rose.c`: The source code of `rose.c`
 
 ## Notes
 

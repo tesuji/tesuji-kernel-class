@@ -39,5 +39,5 @@ Some useful objects:
 * snd_info_private_data: need /proc/asound or /dev/snd
 * <https://starlabs.sg/blog/2023/07-prctl-anon_vma_name-an-amusing-heap-spray/>:
   Caveat not available on older kernels
-* userfaultfd: Since kernel 5.11 onward not enable anymore or need privilege perm.
+* userfaultfd: Since kernel 5.11 onward not enable anymore or need privileged perm.
 -->
