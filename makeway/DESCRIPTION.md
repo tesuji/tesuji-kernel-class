@@ -21,18 +21,20 @@ In practice mode, to aid debugging, edit `run.sh` to modify `qemu` arguments:
 
 ## Recommended readings
 
-* [A Systematic Study of Elastic Objects in Kernel Exploitation][1].
-* [RetSpill: Igniting User-Controlled Data to Burn Away Linux Kernel Protections][2].
-* [SLUBStick: Arbitrary Memory Writes through Practical
-Software Cross-Cache Attacks within the Linux Kernel][3]: Especially page 17.
 * [Four Bytes of Power: Exploiting CVE-2021-26708 in the Linux kernel][4].
 * [(2018) Linux Kernel universal heap spray by Vitaly Nikolenko][5].
+* [RetSpill: Igniting User-Controlled Data to Burn Away Linux Kernel Protections][2].
+* [A Systematic Study of Elastic Objects in Kernel Exploitation][1].
+* [SLUBStick: Arbitrary Memory Writes through Practical
+Software Cross-Cache Attacks within the Linux Kernel][3]: Especially page 17.
+* [(Japanese|2020) Structures that can be used with Kernel Exploit by ptr-yudai][6].
 
 [1]: https://zplin.me/papers/ELOISE.pdf
 [2]: https://adamdoupe.com/publications/retspill-ccs2023.pdf
 [3]: https://www.stefangast.eu/papers/slubstick.pdf
 [4]: https://a13xp0p0v.github.io/2021/02/09/CVE-2021-26708.html
 [5]: https://duasynt.com/blog/linux-kernel-heap-spray
+[6]: https://ptr-yudai.hatenablog.com/archive/2020/03/16
 
 <!--
 Some useful objects:

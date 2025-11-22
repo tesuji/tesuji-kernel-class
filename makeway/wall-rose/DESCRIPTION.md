@@ -1,3 +1,6 @@
+<!--
+    Artifact URL: <https://ctf2023.hitcon.org/dashboard/#15>.
+-->
 ## Instruction
 
 - You have a busybox shell running as user `user`
